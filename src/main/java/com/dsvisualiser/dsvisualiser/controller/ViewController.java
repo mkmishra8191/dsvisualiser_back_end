@@ -27,16 +27,15 @@ public class ViewController {
     @RequestMapping(value = "/leftview", method = RequestMethod.POST)
     public ResponseEntity<List<Integer>> getView(@RequestBody List<Integer> list) {
         HashMap<Integer, Node> q = new HashMap<>();
-        viewService.leftViewUtil(viewService.insert(list,q,1).get(1),1);
 
-        return new ResponseEntity(viewService.getLlist(),HttpStatus.CREATED);
+        return new ResponseEntity(viewService.leftView(viewService.insert(list,q,1).get(1),1),HttpStatus.CREATED);
 
     }
     @RequestMapping(value = "/fullview", method = RequestMethod.POST)
     public ResponseEntity<List<List>> getFullView(@RequestBody List<Integer> list) {
         HashMap<Integer, Node> q = new HashMap<>();
 
-        return new ResponseEntity(viewService.printLevelOrder(viewService.insert(list,q,1).get(1)),HttpStatus.CREATED);
+        return new ResponseEntity(viewService.getFullTree(viewService.insert(list,q,1).get(1)),HttpStatus.CREATED);
 
     }
 }

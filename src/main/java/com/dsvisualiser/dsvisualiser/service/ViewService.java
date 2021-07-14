@@ -7,51 +7,41 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 @Service
 public class ViewService {
-    public int max_level;
+    int max_level=0;
 
-    public List<Integer> getLlist() {
-        return llist;
-    }
-
-    public void setLlist(List<Integer> llist) {
-        this.llist = llist;
-    }
-
-    public List<Integer> llist;
     @Autowired
     public ViewService() {
-        this.llist = new ArrayList<>();
-        this.max_level=0;
+
     }
-   public void leftViewUtil(Node node, int level)
+    public List<Integer> leftView(Node node,int level) {
+        List<Integer> llist= new ArrayList<>();
+        leftViewUtil(node,level,llist);
+
+
+        return llist;
+
+    }
+
+
+
+   public void leftViewUtil(Node node, int level,List<Integer> llist)
     {
         // Base Case
         if (node == null)
             return;
 
         // If this is the first node of its level
-        if (this.max_level < level) {
-            this.llist.add(node.getKey());
-            this.max_level = level;
+        if (max_level < level) {
+            llist.add(node.getKey());
+            max_level = level;
         }
 
         // Recur for left and right subtrees
-        leftViewUtil(node.getLeft(), level + 1);
-        leftViewUtil(node.getRight(), level + 1);
+        leftViewUtil(node.getLeft(),level + 1,llist);
+        leftViewUtil(node.getRight(),level + 1,llist);
 
     }
-    /* Inorder traversal of a binary tree*/
-    public void inorder (Node temp)
-    {
-        if (temp == null)
-            return;
 
-        inorder(temp.getLeft());
-        System.out.print(temp.getKey() + " ");
-        inorder(temp.getRight());
-
-
-    }
 
   public int height(Node root)
     {
@@ -69,9 +59,21 @@ public class ViewService {
             else return(rheight+1);
         }
     }
-    public List<List> printLevelOrder(Node root)
-    {
+
+    public List<List> getFullTree(Node root){
+        List<Integer> llist=new ArrayList<>();
         List<List> aList= new ArrayList<>();
+
+        printLevelOrder(root,aList,llist);
+
+
+        return aList;
+
+    }
+
+    public void printLevelOrder(Node root,List<List> aList,List<Integer> llist)
+    {
+
 
         int h = height(root);
         int i;
@@ -83,7 +85,7 @@ public class ViewService {
             for (int j=0;j<(int) Math.pow(2, i); j++){
                aaList.add(null);
            }
-           printGivenLevel(root, i);
+           printGivenLevel(root, i,llist);
             int finalI = (int) Math.pow(2, i);
             llist.forEach(e->{
 
@@ -94,10 +96,10 @@ public class ViewService {
              aList.add(aaList);
 
         }
-        return aList;
+
     }
     /* Print nodes at a given level */
-    public void printGivenLevel(Node root, int level) {
+    public void printGivenLevel(Node root, int level,List<Integer> llist) {
         List<Integer> list= new ArrayList<>();
         if (root == null)
 
@@ -108,8 +110,8 @@ public class ViewService {
         if (level == 0)
             llist.add(root.getKey());
         else if (level > 0 ) {
-            printGivenLevel(root.getLeft(), level - 1);
-            printGivenLevel(root.getRight(), level - 1);
+            printGivenLevel(root.getLeft(), level - 1,llist);
+            printGivenLevel(root.getRight(), level - 1,llist);
         }
         return;
     }
