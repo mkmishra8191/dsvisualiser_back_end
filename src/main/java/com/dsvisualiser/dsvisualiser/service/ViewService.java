@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 @Service
 public class ViewService {
-   static int max_level;
+    int max_level;
 
     @Autowired
     public ViewService() {
