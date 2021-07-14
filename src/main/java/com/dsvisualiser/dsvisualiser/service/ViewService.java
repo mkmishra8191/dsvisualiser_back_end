@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 @Service
 public class ViewService {
-    int max_level=0;
+   static int max_level;
 
     @Autowired
     public ViewService() {
-
     }
     public List<Integer> leftView(Node node,int level) {
+        this.max_level=0;
         List<Integer> llist= new ArrayList<>();
         leftViewUtil(node,level,llist);
 
@@ -24,16 +24,17 @@ public class ViewService {
 
 
 
-   public void leftViewUtil(Node node, int level,List<Integer> llist)
+   public void leftViewUtil(Node node,int level,List<Integer> llist)
     {
+
         // Base Case
         if (node == null)
             return;
 
         // If this is the first node of its level
-        if (max_level < level) {
+        if (this.max_level < level) {
             llist.add(node.getKey());
-            max_level = level;
+            this.max_level = level;
         }
 
         // Recur for left and right subtrees
