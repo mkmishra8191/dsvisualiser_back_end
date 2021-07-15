@@ -1,7 +1,6 @@
 package com.dsvisualiser.dsvisualiser.controller;
 
 
-import com.dsvisualiser.dsvisualiser.model.Node;
 import com.dsvisualiser.dsvisualiser.service.ViewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,18 +24,10 @@ public class ViewController {
         this.viewService = viewService;
     }
 
-    @RequestMapping(value = "/leftview", method = RequestMethod.POST)
+
+    @RequestMapping(value = "/left_view", method = RequestMethod.POST)
     public ResponseEntity<List<Integer>> getView(@RequestBody List<Integer> list) {
-        HashMap<Integer, Node> q = new HashMap<>();
-
-        return new ResponseEntity(viewService.leftView(viewService.insert(list,q,1).get(1),1),HttpStatus.CREATED);
-
+        return new ResponseEntity(viewService.leftView((viewService.insert(list,new HashMap<>(),1)),1,new ArrayList<>()),HttpStatus.CREATED);
     }
-    @RequestMapping(value = "/fullview", method = RequestMethod.POST)
-    public ResponseEntity<List<List>> getFullView(@RequestBody List<Integer> list) {
-        HashMap<Integer, Node> q = new HashMap<>();
 
-        return new ResponseEntity(viewService.getFullTree(viewService.insert(list,q,1).get(1)),HttpStatus.CREATED);
-
-    }
 }
