@@ -1,6 +1,7 @@
 package com.dsvisualiser.dsvisualiser.controller;
 
 
+import com.dsvisualiser.dsvisualiser.model.Node;
 import com.dsvisualiser.dsvisualiser.service.ViewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +21,16 @@ public class ViewController {
 
     private final ViewService viewService;
 
+
     public ViewController(ViewService viewService) {
         this.viewService = viewService;
     }
 
 
     @RequestMapping(value = "/left_view", method = RequestMethod.POST)
-    public ResponseEntity<List<Integer>> getView(@RequestBody List<Integer> list) {
-        return new ResponseEntity(viewService.leftView((viewService.insert(list,new HashMap<>(),1)),1,new ArrayList<>()),HttpStatus.CREATED);
+    public ResponseEntity<List<Integer>> getView(@RequestBody Node root) {
+
+        return new ResponseEntity(viewService.leftView(root,1,new ArrayList<>()),HttpStatus.CREATED);
     }
 
 }

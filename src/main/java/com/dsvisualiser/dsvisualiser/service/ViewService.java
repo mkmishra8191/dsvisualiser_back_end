@@ -18,7 +18,7 @@ public class ViewService {
         return list;
 
     }
-    // recursive function to print left view
+    // recursive function to collect left view
     public void leftViewUtil(Node node,int level,List<Integer> list)
     {
         // Base Case
@@ -27,7 +27,7 @@ public class ViewService {
 
         // If this is the first node of its level
         if (this.max_level < level) {
-            list.add(node.getKey());
+            list.add(node.getData());
             this.max_level = level;
         }
 
@@ -38,39 +38,5 @@ public class ViewService {
     }
 
 
-    /*function to insert elements in binary tree and returning the root */
-   public Node  insert(List<Integer> list,HashMap<Integer, Node> q , int level) {
-       List<Integer> nList= new ArrayList<>();
-       while (!list.isEmpty()){
-           list.forEach(i-> {
-                if (level == 1){
-                    if (!list.contains(2*i) && !list.contains(2*i + 1)) {
-                        q.put(i, new Node(i));
-                        nList.add(i);
-                    }
-                } else
-                if( q.containsKey(2*i) && q.containsKey(2*i + 1)){
-                    Node node= new Node(i);
-                    node.setLeft(q.get(2*i));
-                    node.setRight(q.get(2*i + 1));
-                    q.put(i,node);
-                    nList.add(i);
-                } else
-                    if(q.containsKey(2*i)&& !list.contains(2*i +1)){
-                        Node node= new Node(i);
-                        node.setLeft(q.get(2*i));
-                        q.put(i,node);
-                        nList.add(i);
-                    }  else
-                        if(q.containsKey(2*i +1)&& !list.contains(2*i)){
-                            Node node= new Node(i);
-                            node.setRight(q.get(2*i + 1));
-                            q.put(i,node);
-                            nList.add(i);                    }
-           });
-            nList.forEach(list::remove);
-            insert(list,q,2);
-       }
-       return q.get(1);
-   }
+
 }

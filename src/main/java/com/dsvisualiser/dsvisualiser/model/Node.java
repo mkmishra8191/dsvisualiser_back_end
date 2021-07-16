@@ -1,12 +1,12 @@
 package com.dsvisualiser.dsvisualiser.model;
 
 public class Node {
-    public int getKey() {
-        return key;
+    public int getData() {
+        return data;
     }
 
-    public void setKey(int key) {
-        this.key = key;
+    public void setData(int data) {
+        this.data = data;
     }
 
     public Node getLeft() {
@@ -25,14 +25,18 @@ public class Node {
         this.right = right;
     }
 
-    int key;
-    Node left, right;
+    int data;
+    Node left;
+    Node right;
+
+    public Node(int data, Node left, Node right) {
+        this.data = data;
+        this.left = left;
+        this.right = right;
+    }
+
+
 
     // constructor
-    public Node(int key)
-    {
-        this.key = key;
-        left = null;
-        right = null;
-    }
+
 }
