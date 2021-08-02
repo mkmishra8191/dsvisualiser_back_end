@@ -1,5 +1,7 @@
 package com.dsvisualiser.dsvisualiser.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Node {
     public int getData() {
         return data;
@@ -29,14 +31,25 @@ public class Node {
     Node left;
     Node right;
 
-    public Node(int data, Node left, Node right) {
-        this.data = data;
-        this.left = left;
-        this.right = right;
+    @JsonIgnore
+    int hd;
+
+
+    public int getHd() {
+        return hd;
+    }
+
+    public void setHd(int hd) {
+        this.hd = hd;
     }
 
 
 
-    // constructor
+    public Node(int data, Node left, Node right) {
+        this.data = data;
+        this.left = left;
+        this.right = right;
+        this.hd= Integer.MAX_VALUE;
 
+    }
 }
